@@ -1,7 +1,8 @@
+// ignore_for_file: library_prefixes, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:haber_uygulamasi/model/newsModel.dart' as newsModel;
-import 'package:shimmer/shimmer.dart';
 
 class News extends StatefulWidget {
   News({Key? key, required this.model}) : super(key: key);
@@ -21,6 +22,7 @@ class _NewsState extends State<News> {
       articlelist = value!;
     });
   } */
+  // ignore: override_on_non_overriding_member
   String image =
       "https://www.huaweiailesi.com/wp-content/uploads/2021/07/share.png";
   
@@ -58,11 +60,11 @@ class _NewsState extends State<News> {
             ),
             Padding(
                 padding: const EdgeInsets.only(left: 8, top: 10),
-                child: Text(widget.model.description!,
+                child: Text(widget.model.description ?? '',
                     style: GoogleFonts.notoSansDisplay(fontSize: 14))),
             Padding(
               padding: const EdgeInsets.all(25),
-              child: Text(widget.model.author!),
+              child: Text(widget.model.author ?? ''),
             )
           ]),
         ));

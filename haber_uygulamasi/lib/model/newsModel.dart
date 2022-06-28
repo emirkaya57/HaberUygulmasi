@@ -2,6 +2,8 @@
 //
 //     final newsModel = newsModelFromJson(jsonString);
 
+// ignore_for_file: file_names, prefer_if_null_operators
+
 import 'dart:convert';
 
 NewsModel newsModelFromJson(String str) => NewsModel.fromJson(json.decode(str));
@@ -55,11 +57,11 @@ class Article {
 
     factory Article.fromJson(Map<String, dynamic> json) => Article(
         source: Source.fromJson(json["source"]),
-        author: json["author"] == null ? null : json["author"],
+        author: json["author"],
         title: json["title"],
         description: json["description"],
         url: json["url"],
-        urlToImage: json["urlToImage"] == null ? null : json["urlToImage"],
+        urlToImage: json["urlToImage"],
         publishedAt: DateTime.parse(json["publishedAt"]),
         content: json["content"],
     );
