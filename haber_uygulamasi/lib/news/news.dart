@@ -25,7 +25,6 @@ class _NewsState extends State<News> {
   // ignore: override_on_non_overriding_member
   String image =
       "https://www.huaweiailesi.com/wp-content/uploads/2021/07/share.png";
-  
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +63,17 @@ class _NewsState extends State<News> {
                     style: GoogleFonts.notoSansDisplay(fontSize: 14))),
             Padding(
               padding: const EdgeInsets.all(25),
-              child: Text(widget.model.author ?? ''),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.model.author ?? '',
+                  ),
+                ],
+              ),
             )
           ]),
         ));
   }
+  
 }
