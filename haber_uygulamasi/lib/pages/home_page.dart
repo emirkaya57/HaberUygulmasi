@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:haber_uygulamasi/category_utils/category.dart';
 import 'package:haber_uygulamasi/services/api_services.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../model/newsModel.dart';
 import '../news/news.dart';
@@ -126,23 +126,19 @@ class _HomePageState extends State<HomePage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildSlider(image),
-            // _buildGridView(image),
+            _buildGridView(image),
           ],
         ),
       ),
     );
   }
 
-GridView _buildGridView(String image) {
-    return GridView.builder(
+  MasonryGridView _buildGridView(String image) {
+    return MasonryGridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 20,
-        crossAxisSpacing: 20,
-        childAspectRatio: 0.80,
-      ),
+      gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2),
       itemCount: articlelist.length,
       itemBuilder: (BuildContext context, int index) {
         // debugPrint(articlelist[index].urlToImage.toString() + "&&&&&&&&&&&&&&&&&&&&&&&&&");
@@ -162,33 +158,51 @@ GridView _buildGridView(String image) {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => News(model: articlelist[index])));
             },
-            child: Container(
-              color: Colors.white,
-              // padding: const EdgeInsets.symmetric(vertical: 32),
-              child: Column(
-                children: [
-                  Hero(
-                      tag: 'news $index',
-                      child: Image.network(
-                        imageUrl,
-                        width: double.infinity,
-                      ) /* Image.network(image , width: double.infinity,) */),
-                  Expanded(
-                    child: Text(
-                      text,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w600,
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        offset: const Offset(
+                          5.0,
+                          5.0,
+                        ),
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
                       ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 4,
+                    ]),
+                margin: EdgeInsets.all(4),
+                height: text.length.toDouble() / 22 * 50,
+
+                // padding: const EdgeInsets.symmetric(vertical: 32),
+                child: Column(
+                  children: [
+                    Hero(
+                        tag: 'news $index',
+                        child: Image.network(
+                          imageUrl,
+                          width: double.infinity,
+                        ) /* Image.network(image , width: double.infinity,) */),
+                    Expanded(
+                      child: Text(
+                        text,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w600,
+                        ),
+                        //overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                ],
+                    const SizedBox(
+                      height: 15,
+                    ),
+                  ],
+                ),
               ),
             ),
           );
