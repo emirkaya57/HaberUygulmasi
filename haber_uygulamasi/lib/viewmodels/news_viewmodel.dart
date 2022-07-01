@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:get_it/get_it.dart';
 import 'package:haber_uygulamasi/repository/news_repository.dart';
 
 import '../locator.dart';
@@ -19,8 +18,10 @@ class NewsViewModel extends ChangeNotifier {
       }
       return newsList;
     } catch (e) {
+      debugPrint(e.toString());
     } finally {
       notifyListeners();
     }
+    return null;
   }
 }

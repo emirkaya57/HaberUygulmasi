@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:haber_uygulamasi/category_utils/category.dart';
-import 'package:haber_uygulamasi/pages/SelectedPage.dart';
 import 'package:haber_uygulamasi/services/api_services.dart';
 import 'package:shimmer/shimmer.dart';
 
