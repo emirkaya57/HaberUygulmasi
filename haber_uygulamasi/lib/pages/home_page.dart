@@ -133,15 +133,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
- MasonryGridView _buildGridView(String image) {
-    return MasonryGridView.builder(
-      mainAxisSpacing: 2,
-       crossAxisSpacing: 2,
-       gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+GridView _buildGridView(String image) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-       /*  mainAxisSpacing: 20,
+        mainAxisSpacing: 20,
         crossAxisSpacing: 20,
-        childAspectRatio: 0.90, */
+        childAspectRatio: 0.80,
       ),
       itemCount: articlelist.length,
       itemBuilder: (BuildContext context, int index) {
@@ -162,37 +162,33 @@ class _HomePageState extends State<HomePage> {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => News(model: articlelist[index])));
             },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-              child: Container(
-                
-                color: Colors.white,
-                // padding: const EdgeInsets.symmetric(vertical: 32),
-                child: Column(
-                  children: [
-                    Hero(
-                        tag: 'news $index',
-                        child: Image.network(
-                          imageUrl,
-                          width: double.infinity,
-                        ) /* Image.network(image , width: double.infinity,) */),
-                    Expanded(
-                      child: Text(
-                        text,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w600,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 4,
+            child: Container(
+              color: Colors.white,
+              // padding: const EdgeInsets.symmetric(vertical: 32),
+              child: Column(
+                children: [
+                  Hero(
+                      tag: 'news $index',
+                      child: Image.network(
+                        imageUrl,
+                        width: double.infinity,
+                      ) /* Image.network(image , width: double.infinity,) */),
+                  Expanded(
+                    child: Text(
+                      text,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w600,
                       ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 4,
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                ],
               ),
             ),
           );
