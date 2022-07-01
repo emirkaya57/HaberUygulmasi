@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:haber_uygulamasi/category_utils/category.dart';
 import 'package:haber_uygulamasi/services/api_services.dart';
 import 'package:shimmer/shimmer.dart';
@@ -18,7 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<Category> _categoryList = Utils.getCategory();
   List<Article> articlelist = [];
-  late final List<PopupMenuEntry> _menuList;
+  // late final List<PopupMenuEntry> _menuList;
   bool isLoading = false;
   @override
   void initState() {
@@ -67,7 +68,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         drawer: _buildDrawer(context),
         appBar: AppBar(
-            actions: [PopupMenuButton(itemBuilder: (context) => _menuList)],
+            // actions: [PopupMenuButton(itemBuilder: (context) => _menuList)],
             centerTitle: true,
             title: const Text(
               'Haberler',
@@ -175,27 +176,35 @@ class _HomePageState extends State<HomePage> {
                         spreadRadius: 2.0,
                       ),
                     ]),
-                margin: EdgeInsets.all(4),
-                height: text.length.toDouble() / 22 * 50,
+                margin: const EdgeInsets.all(4),
+                height: text.length.toDouble() / 22 * 55,
 
                 // padding: const EdgeInsets.symmetric(vertical: 32),
                 child: Column(
                   children: [
                     Hero(
-                        tag: 'news $index',
+                      tag: 'news $index',
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
                         child: Image.network(
+                          fit: BoxFit.fill,
                           imageUrl,
                           width: double.infinity,
-                        ) /* Image.network(image , width: double.infinity,) */),
-                    Expanded(
-                      child: Text(
-                        text,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w600,
                         ),
-                        //overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Text(
+                          text,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Bitter',
+                            fontWeight: FontWeight.w400,
+                          ),
+                          //overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -216,35 +225,54 @@ class _HomePageState extends State<HomePage> {
         margin: const EdgeInsets.only(bottom: 32),
         height: 200,
         width: double.infinity,
-        child: CarouselSlider(
-          options: CarouselOptions(
-              viewportFraction: 1,
-              enlargeCenterPage: true,
-              enableInfiniteScroll: false,
-              autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 2)),
-          items: articlelist
-              .map(
-                (e) => Container(
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(25)),
-                  width: double.infinity,
-                  height: 200,
-                  child: Hero(
-                    tag: e.urlToImage ?? image,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => News(model: e)));
-                      },
-                      child: Image.network(
-                        e.urlToImage ?? image,
+        child: Container(
+          child: CarouselSlider(
+            options: CarouselOptions(
+                viewportFraction: 1,
+                enlargeCenterPage: true,
+                enableInfiniteScroll: false,
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 2)),
+            items: articlelist
+                .map(
+                  (e) => Container(
+                    margin: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            offset: const Offset(
+                              5.0,
+                              5.0,
+                            ),
+                            blurRadius: 10.0,
+                            spreadRadius: 2.0,
+                          ),
+                        ]),
+                    width: double.infinity,
+                    height: 200,
+                    child: Hero(
+                      tag: e.urlToImage ?? image,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => News(model: e)));
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Image.network(
+                            fit: BoxFit.fill,
+                            e.urlToImage ?? image,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              )
-              .toList(),
+                )
+                .toList(),
+          ),
         ));
   }
 }

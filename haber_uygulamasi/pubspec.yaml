@@ -90,6 +90,10 @@ flutter:
    - family: Staatliches
      fonts:
        - asset: fonts/Staatliches-Regular.ttf
+
+   - family: Bitter
+     fonts:
+       - asset: fonts/Bitter-Regular.ttf    
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
