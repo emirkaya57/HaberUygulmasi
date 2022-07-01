@@ -68,6 +68,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         drawer: _buildDrawer(context),
         appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.black),
             // actions: [PopupMenuButton(itemBuilder: (context) => _menuList)],
             centerTitle: true,
             title: const Text(
@@ -177,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ]),
                 margin: const EdgeInsets.all(4),
-                height: text.length.toDouble() / 22 * 55,
+                height: text.length.toInt() / 17 * 54,
 
                 // padding: const EdgeInsets.symmetric(vertical: 32),
                 child: Column(
