@@ -104,11 +104,13 @@ class _HomePageState extends State<HomePage> {
                   title: Text(_categoryList[index].categoryName.toString()),
                   onTap: () {
                     ApiServices.getInstance()
-                        .getNews(_categoryList[index].categoryName.toString());
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SelectedPage()));
+                        .getNews(_categoryList[index].categoryName.toString())
+                        .then((value) {
+                      setState(() {
+                        articlelist = value!;
+                        Navigator.pop(context);
+                      });
+                    });
                   });
             }
             return const CircularProgressIndicator();
