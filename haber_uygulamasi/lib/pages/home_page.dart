@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:haber_uygulamasi/category_utils/category.dart';
 import 'package:haber_uygulamasi/services/api_services.dart';
 import 'package:shimmer/shimmer.dart';
@@ -125,22 +126,22 @@ class _HomePageState extends State<HomePage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildSlider(image),
-            _buildGridView(image),
+            // _buildGridView(image),
           ],
         ),
       ),
     );
   }
 
-  GridView _buildGridView(String image) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+ MasonryGridView _buildGridView(String image) {
+    return MasonryGridView.builder(
+      mainAxisSpacing: 2,
+       crossAxisSpacing: 2,
+       gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisSpacing: 20,
+       /*  mainAxisSpacing: 20,
         crossAxisSpacing: 20,
-        childAspectRatio: 0.90,
+        childAspectRatio: 0.90, */
       ),
       itemCount: articlelist.length,
       itemBuilder: (BuildContext context, int index) {
@@ -161,33 +162,37 @@ class _HomePageState extends State<HomePage> {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => News(model: articlelist[index])));
             },
-            child: Container(
-              color: Colors.white,
-              // padding: const EdgeInsets.symmetric(vertical: 32),
-              child: Column(
-                children: [
-                  Hero(
-                      tag: 'news $index',
-                      child: Image.network(
-                        imageUrl,
-                        width: double.infinity,
-                      ) /* Image.network(image , width: double.infinity,) */),
-                  Expanded(
-                    child: Text(
-                      text,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w600,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+              child: Container(
+                
+                color: Colors.white,
+                // padding: const EdgeInsets.symmetric(vertical: 32),
+                child: Column(
+                  children: [
+                    Hero(
+                        tag: 'news $index',
+                        child: Image.network(
+                          imageUrl,
+                          width: double.infinity,
+                        ) /* Image.network(image , width: double.infinity,) */),
+                    Expanded(
+                      child: Text(
+                        text,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w600,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 4,
                       ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 4,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                ],
+                    const SizedBox(
+                      height: 15,
+                    ),
+                  ],
+                ),
               ),
             ),
           );
