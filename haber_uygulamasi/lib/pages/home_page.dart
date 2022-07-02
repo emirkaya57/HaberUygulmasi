@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ]),
                 margin: const EdgeInsets.all(4),
-                height: text.length.toInt() / 17 * 54,
+                height: text.length.toDouble() * 3.2,
 
                 // padding: const EdgeInsets.symmetric(vertical: 32),
                 child: Column(
@@ -200,7 +200,7 @@ class _HomePageState extends State<HomePage> {
                         child: Text(
                           text,
                           style: const TextStyle(
-                            fontSize: 16,
+                            fontSize: 13,
                             fontFamily: 'Bitter',
                             fontWeight: FontWeight.w400,
                           ),
@@ -237,7 +237,7 @@ class _HomePageState extends State<HomePage> {
             items: articlelist
                 .map(
                   (e) => Container(
-                    margin: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5),
