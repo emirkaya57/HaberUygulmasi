@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:haber_uygulamasi/category_utils/category.dart';
 import 'package:haber_uygulamasi/services/api_services.dart';
 import 'package:shimmer/shimmer.dart';
@@ -68,7 +67,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         drawer: _buildDrawer(context),
         appBar: AppBar(
-            iconTheme: IconThemeData(color: Colors.black),
+            iconTheme: const IconThemeData(color: Colors.black),
             // actions: [PopupMenuButton(itemBuilder: (context) => _menuList)],
             centerTitle: true,
             title: const Text(
@@ -150,7 +149,7 @@ class _HomePageState extends State<HomePage> {
           var imageUrl = articlelist[index].urlToImage ?? image;
           var text = articlelist[index].title!;
 
-          if (imageUrl.contains('asset')) {
+          if (imageUrl.contains('asset') && imageUrl.contains('file://i2.gazetevatan.com/i/gazetevatan/75/1200x0/62c00859ea383486568ee28b.jpg')) {
             imageUrl =
                 "https://www.huaweiailesi.com/wp-content/uploads/2021/07/share.png";
           }
@@ -226,54 +225,52 @@ class _HomePageState extends State<HomePage> {
         margin: const EdgeInsets.only(bottom: 32),
         height: 200,
         width: double.infinity,
-        child: Container(
-          child: CarouselSlider(
-            options: CarouselOptions(
-                viewportFraction: 1,
-                enlargeCenterPage: true,
-                enableInfiniteScroll: false,
-                autoPlay: true,
-                autoPlayInterval: const Duration(seconds: 2)),
-            items: articlelist
-                .map(
-                  (e) => Container(
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
+        child: CarouselSlider(
+          options: CarouselOptions(
+              viewportFraction: 1,
+              enlargeCenterPage: true,
+              enableInfiniteScroll: false,
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 2)),
+          items: articlelist
+              .map(
+                (e) => Container(
+                  margin: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          offset: const Offset(
+                            5.0,
+                            5.0,
+                          ),
+                          blurRadius: 10.0,
+                          spreadRadius: 2.0,
+                        ),
+                      ]),
+                  width: double.infinity,
+                  height: 200,
+                  child: Hero(
+                    tag: e.urlToImage ?? image,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => News(model: e)));
+                      },
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            offset: const Offset(
-                              5.0,
-                              5.0,
-                            ),
-                            blurRadius: 10.0,
-                            spreadRadius: 2.0,
-                          ),
-                        ]),
-                    width: double.infinity,
-                    height: 200,
-                    child: Hero(
-                      tag: e.urlToImage ?? image,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => News(model: e)));
-                        },
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: Image.network(
-                            fit: BoxFit.fill,
-                            e.urlToImage ?? image,
-                          ),
+                        child: Image.network(
+                          fit: BoxFit.fill,
+                          e.urlToImage ?? image,
                         ),
                       ),
                     ),
                   ),
-                )
-                .toList(),
-          ),
+                ),
+              )
+              .toList(),
         ));
   }
 }
